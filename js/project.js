@@ -1,51 +1,51 @@
 $(document).ready(function() {
-    var url="https://raw.githubusercontent.com/radytrainer/test-api/master/test.json" ;
-    $.getJSON(url,function(data){
+    requestApi();
+});
 
-        var result = "";
-        data.recipes.forEach(element => {
-            result +=`
-
-                 <div class="col-6">
-                    <h1>${element.name}</h1>
-                 </div>
-
-                <div class="col-6">
-                   <img src="${element.iconUrl}" class=" img-fluid">
-                </div
-            `;
-        });
-        error: () => console.error("error"),
-        $('#image').append(result);
-
-
-        var chooseOnlyOne = (myChoose) =>{
-            var onlyNumber = parseInt(myChoose);
-            switch(onlyNumber){
-                case 1:
-                   console.log("you choose cake");
-                   break;
-                case 2:
-                    console.log("you are choose French ");
-                    break;
+var requestApi =()=>{
+    var url =  "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+    var image= "";
+    $.getJSON(url ,function(data) {
+        data.forEach(element => {
+            for(var i = 0 ; i < element.length ; i++){
+                if( element[i] == 0){
+                    image +=` 
+                     <img src="${element .iconUrl}"  />;
+                    `;
+                }
             }
-        }
-    
-
+            
+        });
+       
     })
-})
-
-//  { <div class="image">
-// <div class="card-header">
-//    <img src="${element.iconUrl}" class=" img-fluid">
-// </div>
-
-// <div class="card-body">
-
-// </div>
-// <div class="card-footer">
-//  var str= ${element.instructions};
+    $('#image').html(image);
+}
 
 
-// </div>
-// </div> }
+
+// get data from 
+$('#select').on('change',function(){
+   var selectOnlyOne = $('#select option:selected').val();
+      switch(selectOnlyOne){
+        case '1':
+            getChocolate();
+            break;
+        case '2':
+            getAvocado();
+            break;
+        }
+   })
+
+// Get food
+var getChocolate = () => {
+    var getChocolate = " hello";
+    printOut(getChocolate);
+}
+var getAvocado = () => {
+    var getAvocado = "Avocado";
+    printOut(getAvocado );
+}
+
+var printOut =( out)=>{
+    $('#display').html(out);
+}
