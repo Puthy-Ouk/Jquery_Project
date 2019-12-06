@@ -1,51 +1,72 @@
 $(document).ready(function() {
-    var url="https://raw.githubusercontent.com/radytrainer/test-api/master/test.json" ;
-    $.getJSON(url,function(data){
+    requestApi();
+});
 
-        var result = "";
+var requestApi =()=>{
+    $.getJSON(getUrl() ,function(data) {
         data.recipes.forEach(element => {
-            result +=`
-
-                 <div class="col-6">
-                    <h1>${element.name}</h1>
-                 </div>
-
-                <div class="col-6">
-                   <img src="${element.iconUrl}" class=" img-fluid">
-                </div
-            `;
+            getIngredients(element.ingredients);
+           
         });
-        error: () => console.error("error"),
-        $('#image').append(result);
-
-
-        var chooseOnlyOne = (myChoose) =>{
-            var onlyNumber = parseInt(myChoose);
-            switch(onlyNumber){
-                case 1:
-                   console.log("you choose cake");
-                   break;
-                case 2:
-                    console.log("you are choose French ");
-                    break;
-            }
-        }
-    
-
+        
     })
+   
+}
+//get url api
+
+var getUrl = () =>{
+    var url = "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+    return url;
+}
+
+ $('#select').on('change',function(){
+   var selectOnlyOne = $('#select option:selected').val();
+      switch(selectOnlyOne){
+        case '1':
+            getAvocado();
+            break;
+        case '2':
+            getFrench();
+            break;
+        }
 })
 
-//  { <div class="image">
-// <div class="card-header">
-//    <img src="${element.iconUrl}" class=" img-fluid">
-// </div>
+//get ingredients
+var getIngredients = (ing) =>{
+    ing.forEach(item => {
+        getDataAvocado(item);
+    })  
+}
 
-// <div class="card-body">
+// get data from Avocado
+var getDataAvocado = (data) =>{
+    var getAvocado = "";
+    getAvocado +=`
+    <tr>
+        <td><img src="${data.iconUrl}" width="100px"></td>
+        <td>${data.name}</td>
+        <td>${data.unit}</td>
+        <td>${data.quantity}</td>
+    </tr>
+    `;
+    printOut(getAvocado);
+}
 
-// </div>
-// <div class="card-footer">
-//  var str= ${element.instructions};
+
+// Get food
+var getAvocado = () => {
+     getDataAvocado ();
+}
+
+var getFrench = () => {
+    var getFrench = "Avocado";
+    printOut(getFrench);
+}
 
 
-// </div>
-// </div> }
+
+// print out to Html
+
+var printOut = ( out ) =>{
+    $('#ingrediant').append(out);
+}
