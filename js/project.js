@@ -1,51 +1,130 @@
-$(document).ready(function() {
-    var url="https://raw.githubusercontent.com/radytrainer/test-api/master/test.json" ;
-    $.getJSON(url,function(data){
+$(document).ready( () =>{
 
-        var result = "";
-        data.recipes.forEach(element => {
-            result +=`
-
-                 <div class="col-6">
-                    <h1>${element.name}</h1>
-                 </div>
-
-                <div class="col-6">
-                   <img src="${element.iconUrl}" class=" img-fluid">
-                </div
-            `;
-        });
-        error: () => console.error("error"),
-        $('#image').append(result);
-
-
-        var chooseOnlyOne = (myChoose) =>{
-            var onlyNumber = parseInt(myChoose);
-            switch(onlyNumber){
-                case 1:
-                   console.log("you choose cake");
-                   break;
-                case 2:
-                    console.log("you are choose French ");
-                    break;
-            }
-        }
-    
-
+    $('#select').on('change',()=> {
+       var select = $('#select').val();
+       choose(select);
     })
-})
 
-//  { <div class="image">
-// <div class="card-header">
-//    <img src="${element.iconUrl}" class=" img-fluid">
-// </div>
+    // get data by json
 
-// <div class="card-body">
+    
+});
 
-// </div>
-// <div class="card-footer">
-//  var str= ${element.instructions};
+var choose = (data)=>{
+    switch(parseInt(data)){
+        case 1:
+            getAvocado();
+            break;
+        case 2:
+            getFrench(); 
+            break;
+    }
+}
+
+//get apply
+var getAvocado = () =>{
+    var url= "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+    $.getJSON(url,function(data){
+        var avocado="";
+        data.recipes.forEach(element => {
+
+           
+              if(element.id==0){
+                  avocado +=`
+                   <tr>
+                    <td>${element.name}</td>
+                    <td>
+                        <img src="${element.iconUrl}" width="150px"/>
+                   </td>
+                    </tr>
+                   
+                  `;
+                 
+              }
+            })
+            $('#nameFood').html(avocado);
+         
+
+            var avocado="";
+            data.recipes.forEach(element => {
+                element.ingredients.forEach(item =>{
+                  if(element.id==0){
+                      avocado +=`
+                       <tr>
+                        <td>${item.name}</td>
+                        
+                        <td>${item.quantity}</td>
+                        
+                        <td>${item.unit[0]}</td>
+                        
+                        <td>
+                        <img src="${item.iconUrl}" width="100px"/>
+                        </td>
+                        
+                        </tr>
+                        
+                      `;
+                  }
+                })
+                $('#table').html(avocado);
+        });
+    })
+}
 
 
-// </div>
-// </div> }
+
+
+
+
+var getFrench = () =>{
+    var url= "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+    $.getJSON(url,function(data){
+        var french="";
+        data.recipes.forEach(element => {
+
+           
+              if(element.id==1){
+                french +=`
+                   <tr>
+                    <td>${element.name}</td>
+                    <td>
+                        <img src="${element.iconUrl}" width="150px"/>
+                   </td>
+                    </tr>
+                  `;
+                
+              }
+            })
+            $('#nameFood').html(french);
+
+            var french="";
+            data.recipes.forEach(element => {
+                element.ingredients.forEach(item =>{
+                  if(element.id==1){
+                    french +=`
+                       <tr>
+                        <td>${item.name}</td>
+                        
+                        <td>${item.quantity}</td>
+                        
+                        <td>${item.unit[1]}</td>
+                        
+                        <td>
+                        <img src="${item.iconUrl}" width="100px"/>
+                        </td>
+                        
+                        </tr>
+                      `;
+                  }
+                })
+                $('#table').html(french);
+        });
+    }) 
+  
+}
+
+var printOut =(out) =>{
+    $('#table').append(out);
+}
+
+//
