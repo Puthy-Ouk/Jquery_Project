@@ -32,12 +32,48 @@
         </div>
     </div>
     
+    <div class="container mt-5"   id="person" style="display: none; " > 
+        <div class="row" >
+            <div class="col-4 " style="margin-inline:  15px;">Number of persons</div>
+            <div class="col-4" id="numberPerson">
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                    <button class="btn btn-danger" type="button" id="minus">&minus;</button>
+                </div>
+                <input type="text" class="form-control text-center" id="sum" value="0" disabled>
+        
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="button" id="plus">&plus;</button>
+                </div>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-6"  >
+                <h1 class="text-center">Ingredients</h1>
               <table class="table table-tableless" id="table"></table>
             </div>
-            <div class="col-6" id="step"></div>
+            <div class="col-6">
+                <h1 class="text-center">Instructions </h1> 
+                <p  id="step"></p>
+            </div>
+
+        </div>
+
+        <hr>    
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <table class="table table-bordereless" id="ingrediant"></table>
+            </div>
+            <div class="col-3"></div>
+        <hr>
         </div>
     </div>
 
