@@ -1,175 +1,117 @@
+function getUrl(){
+  var url ="https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
+  return url;
+}
+// get data
 
-$(document).ready( () =>{
-
-    $('#select').on('change',()=> {
-       var select = $('#select').val();
-       choose(select);
-    })
-
-    // get data by json
-
-    
+$(document).ready(function(){
+  requestApi();
+  $('#recipe').on('change',() =>{
+      var recipes = $('#recipe').val();
+      getRecipe(recipes);
+  })
 });
 
-var choose = (data)=>{
-    switch(parseInt(data)){
-        case 1:
-            getAvocado();
-            break;
-        case 2:
-            getFrench(); 
-            break;
-    }
+function requestApi () {
+  $.ajax({
+      dataType:'json',
+      url:getUrl(),
+      success:(data) =>chooseRecipe(data.recipes),
+      error:() =>console.log("Cannot get data"),
+  })
 }
 
-//get apply
-
-var getAvocado = () =>{
-    $('#person').css('display', 'block');
-
-    var url= "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
-    $.getJSON(url,function(data){
-        var avocado="";
-     
-        data.recipes.forEach(element => {
-              if(element.id==0){
-                  avocado +=`
-                   <tr>
-                    <td>${element.name}</td>
-                    <td>
-                        <img src="${element.iconUrl}" width="200px"/>
-                   </td>
-                    </tr>
-                  `;
-              }
-            
-            })
-            $('#nameFood').html(avocado);
-      
-
-           
-            // var stepAvocado = "";
-            var avocado="";
-            data.recipes.forEach(element => {
-                element.ingredients.forEach(item =>{
-                  if(element.id==0){   
-                  avocado +=`
-                       <tr>
-                        <td>${item.name}</td>
-                        
-                        <td>${item.quantity}</td>
-                        
-                        <td>${item.unit[0]}</td>
-                        
-                        <td>
-                        <img src="${item.iconUrl}" width="100px"/>
-                        </td>
-                        
-                        </tr>
-                 
-                        
-                      `;
-                    
-                  }
-                })
-                $('#table').html(avocado);
-                // $('#step').html(stepAvocado);
-        });
-    })
+var allData =[];
+function chooseRecipe(recipes){
+  allData =recipes;
+   var option=""; 
+  recipes.forEach(element => {
+      option +=`
+      <option value="${element.id}">${element.name}</option>;
+      `;
+  });
+  $('#recipe').append(option);
 }
 
-//get recipes
+
+//get recipe
+function getRecipe(recipeId){
+  allData.forEach(item =>{
+      if(item.id == recipeId){
+          // console.log(item.instructions)
+          //show recipe(),
+          showRecipe(item.name,item.iconUrl);
+          //showIngredient()
+          showIngredient(item.ingredients);
+          //showStep(), 
+          showInstructions(item.instructions);
+         
+      }
+  });
+}
+
+//showIngredient
 
 
 
+function showRecipe(name,image){
+ 
+  var result ="";
+  result +=`
+  <div class="col-6">
+  <h3>${name}</h3>
+  <h1 class="text-center mt-5 " id="display">Ingredients</h1>
+  </div>
 
-var getFrench = () =>{
-  $('#person').css('display', 'block');
-    var url= "https://raw.githubusercontent.com/radytrainer/test-api/master/test.json";
-    $.getJSON(url,function(data){
-        var french="";
-        data.recipes.forEach(element => {
-              if(element.id==1){
-                french +=`
-                   <tr>
-                    <td>${element.name}</td>
-                    <td>
-                        <img src="${element.iconUrl}" width="150px"/>
-                   </td>
-                    </tr>
-                  `;
-                
-              }
-            })
-            $('#nameFood').html(french);
+  <div class="col-6">
+  <img src="${image}" width="150px">
+  <h1 class="text-center"   id="displays">Instructions </h1> 
+ 
+  </div>
+ 
+  `;
+ 
+  $('#recipe-result').html(result);
+}
+
+function showIngredient(item){
+  var result ="";
+  // $('#display').css('display', 'block');
+  // $('#displays').css('display', 'block');
+ 
+  item.forEach(element =>{
+     result +=`    
+          <tr>
+              <td>${element.name}</td>
           
-   
+             <td>${element.quantity}</td>
+          
+              <td>${element.unit[0]}</td>
+          
+              <td>
+                  <img src="${element.iconUrl}" width="100px"/>
+              </td>
+          </tr>      
+      
+     
 
-            var french="";
-            data.recipes.forEach(element => {
-                element.ingredients.forEach(item =>{
-                  if(element.id==1){
-                    french +=`
-                       <tr>
-                        <td>${item.name}</td>
-                        
-                        <td>${item.quantity}</td>
-                        
-                        <td>${item.unit[1]}</td>
-                        
-                        <td>
-                        <img src="${item.iconUrl}" width="100px"/>
-                        </td>
-                        
-                        </tr>
-                      `;
-                  }
-                })
-                $('#table').html(french);   
-            });
-       
-
-    }) 
-    
+     `; 
+  })
+  $('#table').html(result);
+  
 }
 
+function showInstructions(step) {
+  var result ="";
+ var cutStep = step.split("<step>");
+ console.log(cutStep)
 
+ for(let i=1; i<cutStep.length;i++){
+      result +=`
+      <h1 style="color:blue">Step ${i} :</h1>
+      <p>${cutStep[i]}</p>
+      `;
 
-var printOut =(out) =>{
-    $('#table').append(out);
+ }
+  $('#step').html(result);
 }
-
-
-
-
-
-//get people
-
-var getButton = () =>{
-  $('#person').on()
-} 
-
-
-
-
-// var person = "";
-// var getPeople =()=>{
-// person+=`
-// <div class="row">
-//     <div class="col-3">Number of persons</div>
-//     <div class="col-6" id="numberPerson">
-//     <div class="input-group mb-3">
-//     <div class="input-group-append">
-//     <button class="btn btn-danger" type="button" id="minus">&minus;</button>
-// </div>
-// <input type="text" class="form-control" id="sum" value="0" disabled>
-
-// <div class="input-group-append">
-//     <button class="btn btn-success" type="button" id="plus">&plus;</button>
-// </div>
-// </div>
-// <div class="col-3"></div>
-// </div>
-// `;
-// $('#person').html(person);
-// }
