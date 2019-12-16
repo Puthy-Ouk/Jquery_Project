@@ -13,60 +13,57 @@
         <div class="row">
             <div class="col-4"></div>
             <div class="col-4">
+
                 <select  id="recipe" class="form-control">
                <option value="" disabled selected>Choose Recipe...</option>
-
                 </select>
+
             </div>
             <div class="col-4" >
                
             </div>
         </div>
         <div class="row mt-5" id="recipe-result">
-           
         </div>
        
     </div>
 
     <div class="container mt-5" id="display" style="display: none">
         <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
+            <div class="col-6" style="padding-left: 30%">Member of person</div>
+            <div class="col-4">
                 <div class="input-group mb-3">
                    <div class="input-group-append">
                         <button class="btn btn-danger" type="button" id="minus">&minus;</button>
                    </div>
-               <input type="text" class="form-control text-center" id="sum" value="0" disabled>
+               <input type="text" class="form-control text-center" id="sum" disabled>
        
                <div class="input-group-append">
                    <button class="btn btn-success" type="button" id="plus">&plus;</button>
                </div>
 
             </div>
-            <div class="col-3"></div>
+            <!-- <div class="col-4"></div> -->
 
         </div>
     </div>
+
     </div>
-
-
-
     <div class="container"  >
         <div class="row"  >
             <div class="col-6" >
                 <table class="table table-borderless" id="table"></table>
             </div>
-
-           <div class="col-6" id="step">
-                  
-          
+  
+            <div class="center" id="center" style="display: none"></div>
+            <div class="col-6" id="step"></div>
+                
             </div> 
         </div>
+
       
     </div>
     
-
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/project.js"></script>
 </body>

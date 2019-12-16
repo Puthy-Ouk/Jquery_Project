@@ -10,6 +10,8 @@ $(document).ready(function(){
       var recipes = $('#recipe').val();
       getRecipe(recipes);
       sumPerson();
+      //showPerson
+      showPerson();
   })
  
 });
@@ -25,7 +27,6 @@ function requestApi () {
 
 var allData =[];
 function chooseRecipe(recipes){
- 
   allData =recipes;
    var option=""; 
   recipes.forEach(element => {
@@ -39,7 +40,6 @@ function chooseRecipe(recipes){
 
 //get recipe
 function getRecipe(recipeId){
- 
   allData.forEach(item =>{
       if(item.id == recipeId){
           // console.log(item.instructions)
@@ -50,33 +50,41 @@ function getRecipe(recipeId){
           showIngredient(item.ingredients);
           //showStep(), 
           showInstructions(item.instructions);
+
          
       }
   });
 }
 
+//Getperson
+
+
+
 //showIngredient
-
-
-
 function showRecipe(name,image){
   var result ="";
   $('#display').css('display', 'block');
   result +=`
   <div class="col-6">
-  <h3>${name}</h3>
+  <h2>${name}</h2>
   <h1 class="text-center mt-5 " id="display">Ingredients</h1>
   </div>
-
   <div class="col-6">
   <img src="${image}" width="150px">
   <h1 class="text-center"   id="displays">Instructions </h1> 
  
   </div>
- 
   `;
  
   $('#recipe-result').html(result);
+}
+
+function showPerson(person){
+  var result ="";
+  result +=`
+    value="${person}"  ;
+  `;
+  $('#sum').html(result);
 }
 
 function showIngredient(item){
@@ -84,22 +92,18 @@ function showIngredient(item){
   item.forEach(element =>{
      result +=`    
           <tr>
-              <td>${element.name}</td>
-          
-             <td>${element.quantity}</td>
-          
-              <td>${element.unit[0]}</td>
-          
-              <td>
-                  <img src="${element.iconUrl}" width="100px"/>
-              </td>
+          <td>
+            <img src="${element.iconUrl}" width="80px"/>        
+          </td>
+          <td>${element.quantity}</td>
+          <td>${element.unit[0]}</td>
+          <td>${element.name}</td>
+             
           </tr>      
-      
-     
-
      `; 
   })
   $('#table').html(result);
+  $('#center').css('display','block');
   
 }
 
@@ -107,11 +111,10 @@ function showInstructions(step) {
 
   var result ="";
  var cutStep = step.split("<step>");
- console.log(cutStep)
 
  for(let i=1; i<cutStep.length;i++){
       result +=`
-      <h1 style="color:blue">Step ${i} :</h1>
+      <h2 style="color:blue">Step ${i} :</h2>
       <p>${cutStep[i]}</p>
       `;
 
