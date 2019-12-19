@@ -9,12 +9,28 @@ $(document).ready(function(){
   $('#recipe').on('change',() =>{
       var recipes = $('#recipe').val();
       getRecipe(recipes);
-      sumPerson();
-      //showPerson
-      showPerson();
-  })
+      // sumPerson();
+      ;
+    })
+    
+  $('#minus').on('click', function () {
+    decreaseNumber();
+    var guest = $('#person').val();
  
+    var recipe = $('#recipe').val();
+     updateRecipe(recipe,guest);
+  });
+
+  $('#plus').on('click', function () {
+    increaseNumber();
+    var guest = $('#person').val();
+    var recipe = $('#recipe').val();
+     updateRecipe(recipe,guest);
+  });
+
+
 });
+
 
 function requestApi () {
   $.ajax({
@@ -38,6 +54,7 @@ function chooseRecipe(recipes){
 }
 
 
+var numberDefault =1;
 //get recipe
 function getRecipe(recipeId){
   allData.forEach(item =>{
@@ -45,19 +62,46 @@ function getRecipe(recipeId){
           // console.log(item.instructions)
           //show recipe(),
           showRecipe(item.name,item.iconUrl);
-          
           //showIngredient()
           showIngredient(item.ingredients);
           //showStep(), 
           showInstructions(item.instructions);
-
-         
-      }
+          $('#person').val(item.nbGuests);
+          guestDefault = $('#person').val();
+          // console.log(guestDefault);
+      }  
   });
 }
 
-//Getperson
+function updateRecipe(recipeId,member){
+  allData.forEach(item =>{
+      if(item.id == recipeId){  
+          showRecipe(item.name,item.iconUrl);
+          updateIngredient(item.ingredients,member);
+          showInstructions(item.instructions);
+          $('#person').val(member);
+        
+      }  
+  });
+}
 
+
+var updateIngredient = (ing,guest) => {
+  //  console.log(guest)
+  var ingredient = "";
+  ing.forEach(element => {
+     var add = element.quantity * parseInt(guest)/ guestDefault;
+     ingredient += `
+     <tr>
+         <td><img src = "${element.iconUrl}" width = "80px"></td>
+         <td><span >${ add }</span></td>
+         <td >${element.unit[0]}</td>
+         <td >${element.name}</td>
+     </tr>
+   `
+  })
+  $('#table').html(ingredient);
+} 
 
 
 //showIngredient
@@ -72,19 +116,10 @@ function showRecipe(name,image){
   <div class="col-6">
   <img src="${image}" width="150px">
   <h1 class="text-center"   id="displays">Instructions </h1> 
- 
   </div>
   `;
  
   $('#recipe-result').html(result);
-}
-
-function showPerson(person){
-  var result ="";
-  result +=`
-    value="${person}"  ;
-  `;
-  $('#sum').html(result);
 }
 
 function showIngredient(item){
@@ -104,69 +139,44 @@ function showIngredient(item){
   })
   $('#table').html(result);
   $('#center').css('display','block');
-  
 }
 
-function showInstructions(step) {
 
+
+
+function showInstructions(step) {
   var result ="";
  var cutStep = step.split("<step>");
 
  for(let i=1; i<cutStep.length;i++){
       result +=`
-      <h2 style="color:blue">Step ${i} :</h2>
+      <h4 style="color:blue">Step : ${i} </h4>
       <p>${cutStep[i]}</p>
       `;
-
  }
   $('#step').html(result);
 }
 
 
+function increaseNumber() {
+  var member = $('#person').val();
 
-// sum person
-function sumPerson (){
-  $('#plus').on('click',function(){
-    var plus = $('#sum').val();
-    console.log(plus);
-     addNumber(plus);
- });
- 
- function addNumber(num) {
-  var number = parseInt(num) + 1;
-  if( number <=15){
-      $('#sum').val(number);
-      computer(number);
+  var guest = parseInt(member) + 1;
+  if (guest <= 15) {
+      $('#person').val(guest);
   }
- }
-
- $('#minus').on('click',function(){
-  var minus = $('#sum').val();
-  minusNumber(minus);
- });
-
- function minusNumber(num) {
-  var number = parseInt(num) - 1;
-  if(number >= 0 ){
-      $('#sum').val(number);
-      computer(number);
-  }
- }
-
-//  function computer(number){
-//      var result = number*5;
-//      if(number == 0){
-//          progressBar(result);
-//      }else{
-//          progressBar(result+25);
-//      }
-
-//       $('#result').html(result);
-//  }
-
-//  function progressBar (pro){
-//   $("#progress").width(pro + "%");
-//   $("#progress").html(pro + "%");
-//  }
 
 }
+
+function decreaseNumber() {
+  var member = $('#person').val();
+  var guest = parseInt(member) - 1;
+  if (guest >= 1) {
+      $('#person').val(guest);
+  }
+}
+
+
+
+
+
