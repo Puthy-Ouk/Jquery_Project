@@ -10,60 +10,100 @@
   
 </head>
 <body>
+    <div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 mt-5">
+            <h1 class="text-center">Choose food</h1>
+        </div>
+        <div class="col-4"></div> 
+    </div>
+    </div>
     <div class="container mt-5">
         <div class="row">
-            <div class="col-4"></div>
-            <div class="col-4">
+            <div class=" col-sm-12 col-md-4"></div>
+            <div class="col-sm-12 col-md-4">
 
                 <select  id="recipe" class="form-control">
                     <option value="" disabled selected>Choose Recipe...</option>
                 </select>
 
             </div>
-            <div class="col-4" >
-               
-            </div>
+            <div class="col-sm-12 col-md-4" ></div>
         </div>
+
         <div class="row mt-5" id="recipe-result">
         </div>
        
     </div>
 
-    <div class="container mt-5" id="display" style="display: none">
+
+<!-- display button sum and minus of person -->
+    <div class="container mt-5" id="display" style="display: none;">
         <div class="row">
-            <div class="col-6" style="padding-left: 30%">Member of person</div>
-            <div class="col-4">
+            <div class="col-sm-12 col-md-6" style="padding-left: 20%;"><h5> Member of person</h5></div>
+            <div class="col-sm-12 col-md-4">
                 <div class="input-group mb-3">
                    <div class="input-group-append">
-                        <button class="btn btn-danger" type="button" id="minus">&minus;</button>
+                        <button class="btn btn-danger"  type="button" id="minus">&minus;</button>
                    </div>
                <input type="text" value="1" class="form-control text-center" id="person"  disabled>
        
                <div class="input-group-append">
                    <button class="btn btn-success" type="button" id="plus">&plus;</button>
                </div>
-
+               </div>  
             </div>
-            <!-- <div class="col-4"></div> -->
-
+            <div class=" col-sm-12 col-md-4"></div>
         </div>
     </div>
+   <!-- display ingredients and instructions -->
+    <div class="container mt-5 "  >
+        <div class="row">
+            <div class="col-sm-12 col-md-6" id="ingredients" style="display: none;">
+                <h2 style = "text-shadow: 3px 3px  palegoldenrod; ">Ingredients</h2>
+            </div>
+           
+            <div class="col-sm-12 col-md-6" id="instructions" style="display: none;">
+                 <h2 style = "text-shadow: 3px 3px  palegoldenrod;">Instructions </h2>
+            </div> 
 
+        </div>
+          
     </div>
-    <div class="container"  >
-        <div class="row"  >
-            <div class="col-6">
-                <table class="table table-borderless" id="table" style="background-color:palegoldenrod"></table>
+
+
+   <!-- display ingredients and step -->
+    <div class="container mt-5"  >
+        <div class="row" >
+            <div class="col-sm-12 col-md-6" >
+                <table class="table table-borderless" style="background-color:palegoldenrod" id="table" ></table>
             </div>
   
-            <div class="center" id="center" style="display: none"></div>
-            <div class="col-6" id="step"></div>
+
+            <div class="col-sm-12 col-md-6" id="step" style="background-color:palegoldenrod ;  display:none">
+            
+            </div>
                 
             </div> 
         </div>
-    </div>
-    
+    </div>  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="js/project.js"></script>
 </body>
+
+<footer >
+  <div class="container mt-5 ">
+       <div class="row">
+            <div class="col-12 text-center">
+                <p>Posted by: Puthy Ouk</p>
+                <p  style="margin-left: 20%">Contact information: <a href="#">
+                 puthy.ouk168@gmail.com.</a></p>
+                <p style="margin-right: 5%">Tel:0969153269</p>
+            </div>
+        </div>    
+ </div>  
+</footer>
+
+
 </html>

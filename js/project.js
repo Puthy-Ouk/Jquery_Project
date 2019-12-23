@@ -13,6 +13,8 @@ $(document).ready(function(){
       ;
     })
     
+       
+    //get minus
   $('#minus').on('click', function () {
     decreaseNumber();
     var guest = $('#person').val();
@@ -20,7 +22,7 @@ $(document).ready(function(){
     var recipe = $('#recipe').val();
      updateRecipe(recipe,guest);
   });
-
+ //get plus
   $('#plus').on('click', function () {
     increaseNumber();
     var guest = $('#person').val();
@@ -57,9 +59,9 @@ function chooseRecipe(recipes){
 var numberDefault =1;
 //get recipe
 function getRecipe(recipeId){
+
   allData.forEach(item =>{
       if(item.id == recipeId){
-          // console.log(item.instructions)
           //show recipe(),
           showRecipe(item.name,item.iconUrl);
           //showIngredient()
@@ -68,11 +70,11 @@ function getRecipe(recipeId){
           showInstructions(item.instructions);
           $('#person').val(item.nbGuests);
           guestDefault = $('#person').val();
-          // console.log(guestDefault);
+       
       }  
   });
 }
-
+// updateRecipe
 function updateRecipe(recipeId,member){
   allData.forEach(item =>{
       if(item.id == recipeId){  
@@ -85,9 +87,8 @@ function updateRecipe(recipeId,member){
   });
 }
 
-
+//updateIngredient
 var updateIngredient = (ing,guest) => {
-  //  console.log(guest)
   var ingredient = "";
   ing.forEach(element => {
      var add = element.quantity * parseInt(guest)/ guestDefault;
@@ -106,19 +107,22 @@ var updateIngredient = (ing,guest) => {
 
 //showIngredient
 function showRecipe(name,image){
-  var result ="";
+  $('#ingredients').css('display','block');
+  $('#instructions').css('display','block');
   $('#display').css('display', 'block');
+  $('footer').css('display','block');
+
+  var result ="";
   result +=`
-  <div class="col-6">
-  <h2>${name}</h2>
-  <h1 class="text-center mt-5 " id="display">Ingredients</h1>
+  <div class="col-sm-12 col-md-6">
+  <h2  style="margin-left: 250px;">${name}</h2>
+  
   </div>
-  <div class="col-6">
-  <img src="${image}" width="150px">
-  <h1 class="text-center"   id="displays">Instructions </h1> 
+  <div class="col-sm-12 col-md-6">
+  <img src="${image}" width="200px" style="border-radius:60%;">
+ 
   </div>
   `;
- 
   $('#recipe-result').html(result);
 }
 
@@ -131,9 +135,8 @@ function showIngredient(item){
             <img src="${element.iconUrl}" width="80px"/>        
           </td>
           <td>${element.quantity}</td>
-          <td>${element.unit[0]}</td>
-          <td>${element.name}</td>
-             
+          <td style="img-thumbnail">${element.unit[0]}</td>
+          <td>${element.name}</td>  
           </tr>      
      `; 
   })
@@ -146,6 +149,7 @@ function showIngredient(item){
 
 function showInstructions(step) {
   var result ="";
+  $('#step').css('display','block');
  var cutStep = step.split("<step>");
 
  for(let i=1; i<cutStep.length;i++){
@@ -160,7 +164,6 @@ function showInstructions(step) {
 
 function increaseNumber() {
   var member = $('#person').val();
-
   var guest = parseInt(member) + 1;
   if (guest <= 15) {
       $('#person').val(guest);

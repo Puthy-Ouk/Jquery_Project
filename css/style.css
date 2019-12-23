@@ -1,10 +1,18 @@
-.center{
-    border-left: 1px solid rgb(25, 82, 204);
-    height: 58%;
-    position: absolute;
-    left: 50%;
-}
-/* body{
-    background-image: url(../background.jpg);
+
+body{
+    background-image: url("https://backgrounddownload.com/wp-content/uploads/2018/09/powerpoint-food-background-8.jpg");
     background-size: cover;
-} */
+    opacity: 20px;
+
+}
+footer{
+    background-color: #64dd17;
+    display: none;
+}
+
+img:hover {
+    opacity: 0.5;
+    filter: alpha(opacity=30); /* For IE8 and earlier */
+}
+
+
