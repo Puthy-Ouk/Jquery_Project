@@ -16,3 +16,10 @@ img:hover {
 }
 
 
+marquee {
+    width: 100%;
+    padding: 10px 0;
+    /* background-color: lightblue; */
+    text-align: center;
+    color: red;
+  }

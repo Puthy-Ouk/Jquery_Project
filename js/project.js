@@ -20,14 +20,14 @@ $(document).ready(function(){
     var guest = $('#person').val();
  
     var recipe = $('#recipe').val();
-     updateRecipe(recipe,guest);
+     newRecipe(recipe,guest);
   });
  //get plus
   $('#plus').on('click', function () {
     increaseNumber();
     var guest = $('#person').val();
     var recipe = $('#recipe').val();
-     updateRecipe(recipe,guest);
+     newRecipe(recipe,guest);
   });
 
 
@@ -43,6 +43,8 @@ function requestApi () {
   })
 }
 
+
+// choose Recipe
 var allData =[];
 function chooseRecipe(recipes){
   allData =recipes;
@@ -75,11 +77,11 @@ function getRecipe(recipeId){
   });
 }
 // updateRecipe
-function updateRecipe(recipeId,member){
+function newRecipe(recipeId,member){
   allData.forEach(item =>{
       if(item.id == recipeId){  
           showRecipe(item.name,item.iconUrl);
-          updateIngredient(item.ingredients,member);
+          newIngredient(item.ingredients,member);
           showInstructions(item.instructions);
           $('#person').val(member);
         
@@ -88,7 +90,7 @@ function updateRecipe(recipeId,member){
 }
 
 //updateIngredient
-var updateIngredient = (ing,guest) => {
+var newIngredient = (ing,guest) => {
   var ingredient = "";
   ing.forEach(element => {
      var add = element.quantity * parseInt(guest)/ guestDefault;
